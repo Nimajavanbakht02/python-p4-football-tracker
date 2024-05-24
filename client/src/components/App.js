@@ -1,8 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import NavBar from "./NavBar";
 
 function App() {
-  return <h1>Project Client</h1>;
+  const [teams, setTeams] = useState([])
+
+  useEffect(() => {
+  fetch('/teams')
+  .then(response => response.json())
+  .then(teamsData => setTeams(teamsData))
+  }, [])
+
+  return <div>
+            <NavBar/>
+            <Outlet context={{teams: teams}}/>
+        </div>
 }
 
 export default App;
