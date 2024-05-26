@@ -25,7 +25,7 @@ class Teams(Resource):
         return make_response(jsonify([team.to_dict() for team in teams]), 200)
 
     def post(self):
-        data = request.json
+        data = request.get_json()
         new_team = Team(name=data['name'], city=data['city'])
         db.session.add(new_team)
         db.session.commit()
@@ -64,7 +64,7 @@ class Players(Resource):
     def get(self):
         players = Player.query.all()
         return make_response(jsonify([player.to_dict() for player in players]), 200)
-    
+
     def post(self):
         data = request.get_json()
         new_player = Player(name=data['name'], position=data['position'], team_id=data['team_id'])
@@ -80,7 +80,7 @@ class PlayersById(Resource):
         if not player:
             return make_response({"error": "Player not found"}, 404)
         return make_response(jsonify(player.to_dict()), 200)
-    
+
     def put(self, id):
         data = request.get_json()
         player = Player.query.get(id)
@@ -106,7 +106,7 @@ class Games(Resource):
     def get(self):
         games = Game.query.all()
         return make_response(jsonify([game.to_dict() for game in games]), 200)
-    
+
     def post(self):
         data = request.get_json()
         new_game = Game(date=data['date'], home_team_id=data['home_team_id'], away_team_id=data['away_team_id'])
@@ -122,7 +122,7 @@ class GamesById(Resource):
         if not game:
             return make_response({"error": "Game not found"}, 404)
         return make_response(jsonify(game.to_dict()), 200)
-    
+
     def put(self, id):
         data = request.get_json()
         game = Game.query.get(id)
@@ -145,6 +145,10 @@ class GamesById(Resource):
 api.add_resource(GamesById, '/games/<int:id>')
 
 class Performances(Resource):
+    def get(self):
+        performances = Performance.query.all()
+        return make_response(jsonify([performance.to_dict() for performance in performances]), 200)
+
     def post(self):
         data = request.get_json()
         new_performance = Performance(score=data['score'], player_id=data['player_id'], game_id=data['game_id'])

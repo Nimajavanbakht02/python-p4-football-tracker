@@ -1,4 +1,4 @@
-import Team from "./Team"
+import Team from "./Teams"
 import { useOutletContext } from "react-router-dom"
 
 function TeamsList() {

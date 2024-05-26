@@ -1,13 +1,18 @@
-import { NavLink } from "react-router-dom";
+// NavBar.js
+import React from 'react';
+import { Link } from 'react-router-dom';
 
-function NavBar(){
-    return (
-        <nav className="navbar">
-            <NavLink to="/"><button className="navbutton">HOME</button></NavLink>
-            <NavLink to="/teams"><button className="navbutton">Teams</button></NavLink>
-            {/* <NavLink to="/new-form"><button className="navbutton">QB's</button></NavLink> */}
-        </nav>
-    )
+function NavBar() {
+  return (
+    <nav>
+      <ul>
+        <li><Link to="/create-team">Create Team</Link></li>
+        <li><Link to="/create-player">Create Player</Link></li>
+        <li><Link to="/create-game">Create Game</Link></li>
+        {/* Add other navigation links */}
+      </ul>
+    </nav>
+  );
 }
 
-export default NavBar
+export default NavBar;
