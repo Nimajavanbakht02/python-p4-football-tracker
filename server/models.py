@@ -104,3 +104,23 @@ class Performance(db.Model):
 
     def __repr__(self):
         return f'<Performance {self.score}>'
+
+class FantasyTeam(db.Model):
+    __tablename__ = 'fantasy_teams'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String, nullable=False)
+
+    players = db.relationship('Player', secondary='fantasy_team_players', backref='fantasy_teams')
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+        }
+
+# Define the join table for the many-to-many relationship between fantasy teams and players
+fantasy_team_players = db.Table('fantasy_team_players',
+    db.Column('fantasy_team_id', db.Integer, db.ForeignKey('fantasy_teams.id'), primary_key=True),
+    db.Column('player_id', db.Integer, db.ForeignKey('players.id'), primary_key=True)
+)

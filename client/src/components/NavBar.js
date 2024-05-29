@@ -1,18 +1,16 @@
-// NavBar.js
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
-  return (
-    <nav>
-      <ul>
-        <li><Link to="/create-team">Create Team</Link></li>
-        <li><Link to="/create-player">Create Player</Link></li>
-        <li><Link to="/create-game">Create Game</Link></li>
-        {/* Add other navigation links */}
-      </ul>
-    </nav>
-  );
+    return (
+        <nav>
+            <ul>
+                <li><Link to="/">Home Page</Link></li>
+                <li><Link to="/players">Player List</Link></li>
+                <li><Link to="/create-fantasy-team">Create Fantasy Team</Link></li>
+            </ul>
+        </nav>
+    );
 }
 
 export default NavBar;

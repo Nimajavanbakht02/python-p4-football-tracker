@@ -60,6 +60,14 @@ class TeamsById(Resource):
 
 api.add_resource(TeamsById, '/teams/<int:id>')
 
+class FantasyTeams(Resource):
+    def post(self):
+        data = request.get_json()
+        return make_response(jsonify({"message": "Fantasy team created successfully"}), 201)
+
+api.add_resource(FantasyTeams, '/fantasy-teams')
+
+
 class Players(Resource):
     def get(self):
         players = Player.query.all()
