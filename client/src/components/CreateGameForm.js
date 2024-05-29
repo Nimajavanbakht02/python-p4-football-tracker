@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function CreateGameForm() {
+function CreateGameForm({teams}) {
     const [date, setDate] = useState('');
     const [homeTeamId, setHomeTeamId] = useState('');
     const [awayTeamId, setAwayTeamId] = useState('');
@@ -24,15 +24,25 @@ function CreateGameForm() {
         <form onSubmit={handleSubmit}>
             <label>
                 Date:
-                <input type="text" value={date} onChange={(e) => setDate(e.target.value)} />
+                <input type="date" value={date} onChange={(e) => setDate(e.target.value)} />
             </label>
             <label>
-                Home Team ID:
-                <input type="text" value={homeTeamId} onChange={(e) => setHomeTeamId(e.target.value)} />
+                Home Team:
+                {/* <input type="text" value={homeTeamId} onChange={(e) => setHomeTeamId(e.target.value)} /> */}
+                <select value={homeTeamId} onChange={e => setHomeTeamId(e.target.value)}>
+                    {teams.map(team => {
+                        return <option value={team.id}>{team.name}</option>
+                    })}
+                </select>
             </label>
             <label>
-                Away Team ID:
-                <input type="text" value={awayTeamId} onChange={(e) => setAwayTeamId(e.target.value)} />
+                Away Team:
+                {/* <input type="text" value={awayTeamId} onChange={(e) => setAwayTeamId(e.target.value)} /> */}
+                <select value={awayTeamId} onChange={e => setAwayTeamId(e.target.value)}>
+                    {teams.map(team => {
+                        return <option value={team.id}>{team.name}</option>
+                    })}
+                </select>
             </label>
             <button type="submit">Create Game</button>
         </form>

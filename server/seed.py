@@ -17,7 +17,12 @@ with app.app_context():
     patriots = Team(name="Patriots", city="New England")
     giants = Team(name="Giants", city="New York")
     eagles = Team(name="Eagles", city="Philadelphia")
-    teams = [patriots, giants, eagles]
+    fortyniners = Team(name ="49ers", city="San Francisco")
+    cardinals = Team(name="Cardinals", city="Arizona")
+    falcons = Team(name="Falcons", city="Atlanta")
+    panthers = Team(name="Panthers", city="Carolina")
+    bears = Team(name="Chicago", city="Bears")
+    teams = [patriots, giants, eagles, fortyniners, cardinals, falcons, panthers, bears, ]
 
     print("Creating players...")
 

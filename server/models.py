@@ -13,7 +13,7 @@ class Team(db.Model):
     games_home = db.relationship('Game', foreign_keys='Game.home_team_id', back_populates='home_team')
     games_away = db.relationship('Game', foreign_keys='Game.away_team_id', back_populates='away_team')
 
-    def to_dict(self, include_players=False):
+    def to_dict(self, include_players=False, include_games=False):
         data = {
             'id': self.id,
             'name': self.name,
@@ -21,7 +21,11 @@ class Team(db.Model):
         }
         if include_players:
             data['players'] = [player.to_dict() for player in self.players]
+        if include_games:
+            data['games'] = [g.to_dict() for g in self.games_home + self.games_away]
         return data
+    
+
 
     def __repr__(self):
         return f'<Team {self.name}>'
