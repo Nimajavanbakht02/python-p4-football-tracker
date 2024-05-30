@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+ 
 
 db = SQLAlchemy()
 
@@ -12,7 +13,8 @@ class Team(db.Model):
     players = db.relationship('Player', back_populates='team')
     games_home = db.relationship('Game', foreign_keys='Game.home_team_id', back_populates='home_team')
     games_away = db.relationship('Game', foreign_keys='Game.away_team_id', back_populates='away_team')
-
+    # home_team_score = db.relationship('Score', foreign_keys='Game.home_team_score', back_populates='home_team_score')
+    # away_team_score = db.relationship('Score', foreign_keys='Game.away_team_score', back_populates='away_team_score')
     def to_dict(self, include_players=False, include_games=False):
         data = {
             'id': self.id,
@@ -37,6 +39,8 @@ class Player(db.Model):
     name = db.Column(db.String, nullable=False)
     position = db.Column(db.String, nullable=False)
     team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=False)
+    # home_team_score_id = db.Column(db.integer, db.ForeignKey('games.id'), nullable=False)
+    # away_team_score_id = db.Column(db.integer, db.ForeignKey('games.id'), nullable=False)
 
     team = db.relationship('Team', back_populates='players')
     performances = db.relationship('Performance', back_populates='player')
@@ -62,9 +66,14 @@ class Game(db.Model):
     date = db.Column(db.String, nullable=False)
     home_team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=False)
     away_team_id = db.Column(db.Integer, db.ForeignKey('teams.id'), nullable=False)
+    home_team_score = db.Column(db.Integer)
+    away_team_score = db.Column(db.Integer)
+
 
     home_team = db.relationship('Team', foreign_keys=[home_team_id], back_populates='games_home')
     away_team = db.relationship('Team', foreign_keys=[away_team_id], back_populates='games_away')
+    # away_team_score = db.relationship('Team', foreign_keys=[away_team_score], back_populates='away_team_score')
+    # home_team_score = db.relationship('Team', foreign_keys=[home_team_score], back_populates='home_team_score')
     performances = db.relationship('Performance', back_populates='game')
 
     def to_dict(self, include_teams=False):
@@ -73,6 +82,8 @@ class Game(db.Model):
             'date': self.date,
             'home_team_id': self.home_team_id,
             'away_team_id': self.away_team_id,
+            'home_team_score': self.home_team_score,
+            'away_team_score': self.away_team_score,
         }
         if include_teams:
             data['home_team'] = self.home_team.to_dict()

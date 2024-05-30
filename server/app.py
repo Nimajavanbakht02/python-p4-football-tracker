@@ -122,7 +122,9 @@ class Games(Resource):
             home_team_id=data['home_team_id'],
             away_team_id=data['away_team_id'],
             home_score=data['home_score'],
-            away_score=data['away_score']
+            away_score=data['away_score'],
+            home_team_score=data['home_team_score'],
+            away_team_score=data['away_team_score']
         )
         db.session.add(new_game)
         db.session.commit()
@@ -145,6 +147,8 @@ class GamesById(Resource):
         game.date = data['date']
         game.home_team_id = data['home_team_id']
         game.away_team_id = data['away_team_id']
+        game.home_team_score = data['home_team_score']
+        game.away_team_score = data['away_team_score']
         db.session.commit()
         return make_response(jsonify(game.to_dict()), 200)
 

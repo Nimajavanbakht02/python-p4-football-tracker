@@ -5,6 +5,8 @@ function CreateGameForm({teams}) {
     const [date, setDate] = useState('');
     const [homeTeamId, setHomeTeamId] = useState('');
     const [awayTeamId, setAwayTeamId] = useState('');
+    const [home_team_score, setHomeTeamScore] = useState('');
+    const [away_team_score, setAwayTeamScore] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -14,6 +16,8 @@ function CreateGameForm({teams}) {
                 setDate('');
                 setHomeTeamId('');
                 setAwayTeamId('');
+                home_team_score('');
+                away_team_score('')
             })
             .catch(error => {
                 console.error(error);
@@ -43,6 +47,22 @@ function CreateGameForm({teams}) {
                         return <option value={team.id}>{team.name}</option>
                     })}
                 </select>
+            </label>
+            <label>
+                {/* Home Team Score:
+                <select value={home_team_score} onChange={e => setHomeTeamScore(e.target.value)}>
+                    {teams.map(team => {
+                        return <option value={team.home_team_score}>{team.home_team_score}</option>
+                    })}
+                </select>
+
+                Away Team Score:
+                <select value={away_team_score} onChange={e => setAwayTeamScore(e.target.value)}>
+                    {teams.map(team => {
+                        return <option value={team.away_team_score}>{team.away_team_score}</option>
+                    })}
+                </select> */}
+
             </label>
             <button type="submit">Create Game</button>
         </form>
