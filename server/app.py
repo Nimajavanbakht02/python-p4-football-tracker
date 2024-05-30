@@ -38,7 +38,7 @@ class TeamsById(Resource):
         team = db.session.query(Team).get(id)
         if not team:
             return make_response({"error": "Team not found"}, 404)
-        return make_response(jsonify(team.to_dict(include_players=True, include_games=True)), 200)
+        return make_response(jsonify(team.to_dict()), 200)
 
     def put(self, id):
         data = request.get_json()
@@ -59,14 +59,6 @@ class TeamsById(Resource):
         return make_response("", 204)
 
 api.add_resource(TeamsById, '/teams/<int:id>')
-
-class FantasyTeams(Resource):
-    def post(self):
-        data = request.get_json()
-        return make_response(jsonify({"message": "Fantasy team created successfully"}), 201)
-
-api.add_resource(FantasyTeams, '/fantasy-teams')
-
 
 class Players(Resource):
     def get(self):
@@ -117,15 +109,7 @@ class Games(Resource):
 
     def post(self):
         data = request.get_json()
-        new_game = Game(
-            date=data['date'],
-            home_team_id=data['home_team_id'],
-            away_team_id=data['away_team_id'],
-            home_score=data['home_score'],
-            away_score=data['away_score'],
-            home_team_score=data['home_team_score'],
-            away_team_score=data['away_team_score']
-        )
+        new_game = Game(date=data['date'], home_team_id=data['home_team_id'], away_team_id=data['away_team_id'])
         db.session.add(new_game)
         db.session.commit()
         return make_response(jsonify(new_game.to_dict()), 201)
@@ -147,8 +131,6 @@ class GamesById(Resource):
         game.date = data['date']
         game.home_team_id = data['home_team_id']
         game.away_team_id = data['away_team_id']
-        game.home_team_score = data['home_team_score']
-        game.away_team_score = data['away_team_score']
         db.session.commit()
         return make_response(jsonify(game.to_dict()), 200)
 
