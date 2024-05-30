@@ -54,7 +54,7 @@ function App() {
           },
           {
             path: "/create-fantasy-team",
-            element: <CreateFantasyTeam createFantasyTeams={createFantasyTeam} />,
+            element: <CreateFantasyTeam players={players} />,
           },
         ],
       },
