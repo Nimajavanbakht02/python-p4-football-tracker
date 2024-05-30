@@ -9,10 +9,8 @@ import TeamsList from "./TeamsList";
 import Layout from "./Layout";
 import axios from "axios";
 import "../index.css";
-import Team from "./Team"
 
 import ErrorPage from "./ErrorPage";
-import CreateGameForm from "./CreateGameForm";
 
 function App() {
     const [teams, setTeams] = useState([]);
@@ -58,15 +56,6 @@ function App() {
             path: "/create-fantasy-team",
             element: <CreateFantasyTeam players={players} />,
           },
-          ,
-        {
-          path: "/teams/:id",
-          element: <Team/>
-        },
-        {path: "/games/new",
-            element: <CreateGameForm teams={teams}/>
-        }
-
         ],
       },
     ]);
