@@ -26,7 +26,7 @@ class Teams(Resource):
 
     def post(self):
         data = request.get_json()
-        new_team = Team(name=data['name'], city=data['city'])
+        new_team = Team(name=data['name'], city=data['city'], rank=data['rank'] , logo=data['logo'])
         db.session.add(new_team)
         db.session.commit()
         return make_response(jsonify(new_team.to_dict()), 201)
@@ -39,6 +39,7 @@ class TeamsById(Resource):
         if not team:
             return make_response({"error": "Team not found"}, 404)
         return make_response(jsonify(team.to_dict()), 200)
+
 
     def put(self, id):
         data = request.get_json()
