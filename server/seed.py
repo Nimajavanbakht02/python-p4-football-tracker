@@ -4,6 +4,8 @@ from datetime import datetime
 
 def seed_data():
     with app.app_context():
+        db.drop_all()
+        db.create_all()
 
         try:
             # Delete existing rows to avoid duplicate entries
@@ -129,6 +131,7 @@ def seed_data():
 
             for idx, player in enumerate(defense_players):
                 performances.append(Performance(player=player, game=games[idx % len(games)], score=idx % 6))
+
 
             # Add all records to the session
             print("Adding records to the database...")
