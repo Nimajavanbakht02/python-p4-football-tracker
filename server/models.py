@@ -93,12 +93,14 @@ class Game(db.Model):
 
     def to_dict(self, include_teams=False):
         data = {
-            "id": self.id,
-            "date": self.date,
-            "home_team_id": self.home_team_id,
-            "away_team_id": self.away_team_id,
-            "home_team_score": self.home_team_score,
-            "away_team_score": self.away_team_score,
+            'id': self.id,
+            'date': self.date,
+            'home_team_id': self.home_team_id,
+            'away_team_id': self.away_team_id,
+            'home_team_score': self.home_team_score,
+            'away_team_score': self.away_team_score,
+            'home_team': self.home_team.name,
+            'away_team': self.away_team.name
         }
         if include_teams:
             data["home_team"] = self.home_team.to_dict()
@@ -165,3 +167,10 @@ fantasy_team_players = db.Table(
     ),
     db.Column("player_id", db.Integer, db.ForeignKey("players.id"), primary_key=True),
 )
+
+class NewGame(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    home_team = db.Column(db.String(100), nullable=False)
+    away_team = db.Column(db.String(100), nullable=False)
+    home_team_score = db.Column(db.Integer, nullable=False)
+    away_team_score = db.Column(db.Integer, nullable=False)
