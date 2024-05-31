@@ -7,7 +7,9 @@ function PlayerList({ players }) {
             <ul>
                 {players.map(player => (
                     <li key={player.id}>
-                        {player.name} - {player.position}
+                        <a href={`#player-${player.id}`}>
+                            {player.name} - {player.position}
+                        </a>
                     </li>
                 ))}
             </ul>

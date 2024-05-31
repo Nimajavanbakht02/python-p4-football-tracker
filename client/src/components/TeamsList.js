@@ -1,12 +1,20 @@
-import Team from "./Teams";
-import { useOutletContext } from "react-router-dom";
+// TeamsList.js
+import React from 'react';
+import { Link } from 'react-router-dom';
 
 function TeamsList({ teams }) {
-  console.log(teams);
-  const teamsComponents = teams.map((team) => {
-    return <Team key={team.id} team={team} />;
-  });
-  return <ul>{teamsComponents}</ul>;
+    return (
+        <div>
+            <h2>Teams</h2>
+            <ul>
+                {teams.map(team => (
+                    <li key={team.id}>
+                        <Link to={`/teams/${team.id}`}>{team.name} ({team.city})</Link>
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
 }
 
 export default TeamsList;
