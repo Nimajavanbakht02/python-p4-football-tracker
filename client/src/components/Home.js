@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Home({ teams }) {
   return (
@@ -7,7 +8,9 @@ function Home({ teams }) {
       <ul>
         {teams.map((team) => (
           <li key={team.id}>
-            {team.name} ({team.city})
+            <Link to={`/teams/${team.id}`}>
+              {team.name} ({team.city})
+            </Link>
           </li>
         ))}
       </ul>
