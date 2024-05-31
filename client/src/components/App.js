@@ -10,8 +10,7 @@ import Layout from "./Layout";
 import axios from "axios";
 import "../index.css";
 import ErrorPage from "./ErrorPage";
-import Team from "./Team";
-import NewGameForm from "./NewGame";
+import CreateGameForm from "./CreateGameForm";
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -25,15 +24,17 @@ function App() {
     });
     axios.get("/players").then((response) => setPlayers(response.data));
     axios.get("/games").then((response) => setGames(response.data));
-    axios.get("/performances").then((response) => setPerformances(response.data));
+    axios
+      .get("/performances")
+      .then((response) => setPerformances(response.data));
   }, []);
 
   const handleNewGame = (gameData) => {
-    fetch("/games", {method: "POST"})
-      .then(r => r.json())
-      .then(data => {
+    fetch("/games", { method: "POST" })
+      .then((r) => r.json())
+      .then((data) => {
         setGames([...games, data]);
-      })  
+      });
   };
 
   const createFantasyTeam = (teamData) => {
@@ -72,7 +73,7 @@ function App() {
           element: (
             <>
               <h1>Add a New Game</h1>
-              <NewGameForm teams={teams} onSubmit={handleNewGame} />
+              <CreateGameForm teams={teams} onSubmit={handleNewGame} />
             </>
           ),
         },

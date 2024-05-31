@@ -1,47 +1,29 @@
 import React, { useState, useEffect } from 'react';
 
-const logoOptions = [
-  'logo1.png',
-  'logo2.png',
-  'logo3.png',
-  'logo4.png',
-  'logo5.png',
-  'logo6.png',
-  'logo7.png',
-  'logo8.png',
-  'logo9.png',
-  'logo10.png'
-];
-
 function CreateFantasyTeam({ players }) {
     const [teamName, setTeamName] = useState('');
-    const [selectedLogo, setSelectedLogo] = useState('');
     const [selectedPlayers, setSelectedPlayers] = useState([]);
     const [notification, setNotification] = useState('');
 
     // Load data from local storage when the component mounts
     useEffect(() => {
         const storedTeamName = localStorage.getItem('teamName');
-        const storedSelectedLogo = localStorage.getItem('selectedLogo');
         const storedSelectedPlayers = JSON.parse(localStorage.getItem('selectedPlayers'));
 
         if (storedTeamName) setTeamName(storedTeamName);
-        if (storedSelectedLogo) setSelectedLogo(storedSelectedLogo);
         if (storedSelectedPlayers) setSelectedPlayers(storedSelectedPlayers);
     }, []);
 
     // Save data to local storage whenever it changes
     useEffect(() => {
         localStorage.setItem('teamName', teamName);
-        localStorage.setItem('selectedLogo', selectedLogo);
         localStorage.setItem('selectedPlayers', JSON.stringify(selectedPlayers));
-    }, [teamName, selectedLogo, selectedPlayers]);
+    }, [teamName, selectedPlayers]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
         // For demonstration purposes, let's just log the data
         console.log("Team Name:", teamName);
-        console.log("Selected Logo:", selectedLogo);
         console.log("Selected Players:", selectedPlayers);
         setNotification('Team information updated.');
         // Here you can perform any action you want with the form data
@@ -55,10 +37,6 @@ function CreateFantasyTeam({ players }) {
                 return [...prevSelectedPlayers, playerId];
             }
         });
-    };
-
-    const handleLogoSelect = (logo) => {
-        setSelectedLogo(logo);
     };
 
     return (
@@ -90,20 +68,6 @@ function CreateFantasyTeam({ players }) {
                         ))}
                     </ul>
                 </div>
-                <div>
-                    <label>Select Logo:</label>
-                    <div>
-                        {logoOptions.map((logo, index) => (
-                            <img
-                                key={index}
-                                src={`/logos/${logo}`}
-                                alt={`Logo ${index + 1}`}
-                                style={{ cursor: 'pointer', marginRight: '10px', border: selectedLogo === logo ? '2px solid blue' : 'none' }}
-                                onClick={() => handleLogoSelect(logo)}
-                            />
-                        ))}
-                    </div>
-                </div>
                 <button type="submit">Create Team</button>
             </form>
             {notification && <div>{notification}</div>}
@@ -113,9 +77,6 @@ function CreateFantasyTeam({ players }) {
                         <h2>Team Information</h2>
                         <div>
                             <strong>Team Name:</strong> {teamName}
-                        </div>
-                        <div>
-                            <strong>Selected Logo:</strong> {selectedLogo}
                         </div>
                         <div>
                             <strong>Selected Players:</strong>
