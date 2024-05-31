@@ -8,8 +8,10 @@ import TeamDetails from "./TeamDetails";
 import TeamsList from "./TeamsList";
 import Layout from "./Layout";
 import axios from "axios";
+import NewGameForm from "./NewGame";
 import "../index.css";
 import ErrorPage from "./ErrorPage";
+import Team from "./Team";
 
 function App() {
   const [teams, setTeams] = useState([]);
@@ -27,6 +29,12 @@ function App() {
       .get("/performances")
       .then((response) => setPerformances(response.data));
   }, []);
+
+  const handleNewGame = (gameData) => {
+    fetch("/games", {method: "POST"}).then(r =>r.json()).then(data => {
+        setGames([...games, ])
+    })  
+  }
 
   const createFantasyTeam = (teamData) => {
     // Implement the logic to create a fantasy team here
@@ -59,6 +67,25 @@ function App() {
           path: "/create-fantasy-team",
           element: <CreateFantasyTeam players={players} />,
         },
+        {
+          path: "/games/new",
+          element: <>
+           <h1>Add a New Game</h1>
+    <NewGameForm teams={teams} onSubmit={handleNewGame} />
+    {/* <h2>Submitted Games</h2> */}
+    {/* <ul>
+      {games.map((game, index) => (
+        <li key={index}>
+          <p>Date: {game.date}</p>
+          <p>Home Team: {game.home_team}</p>
+          <p>Away Team: {game.away_team}</p>
+          <p>Home Team Score: {game.home_team_score}</p>
+          <p>Away Team Score: {game.away_team_score}</p>
+        </li>
+      ))}
+    </ul> */}
+          </>,
+        }
       ],
     },
   ]);
